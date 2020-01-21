@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_general_36dp"
+    android:theme="@style/AppThemeMaterial"
+    tools:context=".ui.login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:src="@drawable/inventorylogo" />
+
+    <TextView
+        android:id="@+id/tvInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/productsansregular"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#B6000000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="@dimen/padding_general_48dp"
+        android:text="@string/user" />
+
+    <EditText
+        android:id="@+id/edUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/tvPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="@dimen/tvMarginTop_24dp"
+        android:text="@string/password" />
+
+    <EditText
+        android:id="@+id/edPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tvMarginTop_24dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/chbRemember"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/remember"
+            android:textColorSecondary="@color/primary_text_default_material_light2"
+            app:buttonTint="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            style="@style/Widget.Button.Transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/productsansbold"
+            android:text="@string/signup" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="@dimen/tvMarginTop_24dp"
+        android:background="@drawable/selector_btn_signin"
+        android:fontFamily="@font/productsansbold"
+        android:text="@string/signin"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btGoogle"
+            android:layout_width="@dimen/imgBtnLogin"
+            android:layout_height="@dimen/imgBtnLogin"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/tvMarginTop_24dp"
+            android:layout_marginEnd="@dimen/tvMarginTop_24dp"
+            android:background="@drawable/login_btn_google"
+            android:fontFamily="@font/productsansbold"
+            android:padding="9dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_google_brands"
+            android:textColor="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/btTwitter"
+            android:layout_width="@dimen/imgBtnLogin"
+            android:layout_height="@dimen/imgBtnLogin"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/tvMarginTop_24dp"
+            android:background="@drawable/login_btn_twitter"
+            android:fontFamily="@font/productsansbold"
+            android:gravity="center"
+            android:padding="9dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_twitter_brands"
+            android:textColor="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/btFacebook"
+            android:layout_width="@dimen/imgBtnLogin"
+            android:layout_height="@dimen/imgBtnLogin"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/tvMarginTop_24dp"
+            android:background="@drawable/login_btn_face"
+            android:fontFamily="@font/productsansbold"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_facebook_f_brands"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</LinearLayout>

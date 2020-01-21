@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemDescription"
+        android:icon="@drawable/ic_description_black_24dp"
+        android:title="@string/description" />
+    <item
+        android:id="@+id/itemInfo"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/info" />
+    <item
+        android:id="@+id/itemMap"
+        android:icon="@drawable/ic_map_black_24dp"
+        android:title="@string/map" />
+</menu>

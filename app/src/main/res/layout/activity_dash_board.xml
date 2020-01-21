@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppThemeMaterial"
+    tools:context=".ui.dash.DashBoardActivity">
+
+    <TableLayout
+        android:id="@+id/tblDash"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:stretchColumns="0,1"
+        style="@style/MaterialAlertDialog.MaterialComponents.Title.Panel.CenterStacked"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:id="@+id/tbrBash1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnInventory"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textSize="@dimen/text_18sp"
+                android:drawableTop="@drawable/ic_select_all_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name" />
+
+            <Button
+                android:id="@+id/btnDependencies"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:drawableTop="@drawable/ic_view_compact_black_24dp"
+                android:textSize="@dimen/text_18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dependencies" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnSections"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_subject_black_24dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textSize="@dimen/text_18sp"
+                android:text="@string/sections" />
+
+            <Button
+                android:id="@+id/btnProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_local_offer_black_24dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textSize="@dimen/text_18sp"
+                android:text="@string/products" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_person_black_24dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textSize="@dimen/text_18sp"
+                android:text="@string/profile" />
+
+            <Button
+                android:id="@+id/btnSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textSize="@dimen/text_18sp"
+                android:text="@string/settings" />
+        </TableRow>
+
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

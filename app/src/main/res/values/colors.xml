@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary colors -->
+    <color name="colorPrimary">#f44336</color>
+    <color name="colorPrimaryDark">#ba000d</color>
+    <color name="colorPrimaryLight">#ff7961</color>
+
+    <!-- Secondary colors -->
+    <color name="colorSecondary">#ef5350</color>
+    <color name="colorSecondaryDark">#b61827</color>
+    <color name="colorSecondaryLight">#ff867c</color>
+
+    <!-- Accent colors -->
+    <color name="colorAccent">#D81B60</color>
+
+    <!-- Color splash font -->
+    <color name="colorFont">#B6000000</color>
+
+    <color name="colorGoogle">#DB4437</color>
+    <color name="colorFacebook">#3b5998</color>
+    <color name="colorTwitter">#00acee</color>
+
+    <color name="primary_text_default_material_light2">#de000000</color>
+    <color name="secondary_text_material_light2">#8a000000</color>
+
+    <color name="white">#FFF</color>
+
+
+</resources>
