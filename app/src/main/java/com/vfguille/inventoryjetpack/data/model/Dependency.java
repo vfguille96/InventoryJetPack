@@ -3,6 +3,7 @@ package com.vfguille.inventoryjetpack.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -11,16 +12,21 @@ import java.util.Objects;
 
 @Entity
 public class Dependency implements Parcelable {
-    @Ignore
+
     public static final String TAG = "dependency";
 
+    @NonNull
     String name;
     @PrimaryKey
+    @NonNull
     String shortName;
+    @NonNull
     String description;
+    @NonNull
     String inventory;
     String image;
 
+    @Ignore
     public Dependency() {
     }
 
@@ -32,6 +38,7 @@ public class Dependency implements Parcelable {
         this.image = image;
     }
 
+    @Ignore
     protected Dependency(Parcel in) {
         name = in.readString();
         shortName = in.readString();

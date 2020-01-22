@@ -1,73 +1,77 @@
 package com.vfguille.inventoryjetpack.data.repository;
 
+import android.os.AsyncTask;
+
+import com.vfguille.inventoryjetpack.data.InventoryDatabase;
+import com.vfguille.inventoryjetpack.data.dao.DependencyDao;
 import com.vfguille.inventoryjetpack.data.model.Dependency;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class DependencyRepository {
     private static DependencyRepository dependencyRepository;
-    private ArrayList<Dependency> list;
+    private static DependencyDao dependencyDao;
 
     // Constructor privado porque sólo existe un objeto Repository.
     private DependencyRepository() {
-        list = new ArrayList<>();
-        initialize();
+        initializeList();
     }
 
     public static DependencyRepository getInstance() {
-        if (dependencyRepository == null)
+        if (dependencyRepository == null) {
+            dependencyDao = InventoryDatabase.getDatabase().dependencyDao();
             dependencyRepository = new DependencyRepository();
+        }
         return dependencyRepository;
     }
 
-    private void initialize() {
-        list.add(new Dependency("2º Ciclo Formativo Grado Superior", "2CFGS", "Aula informática", "", "https://images.squarespace-cdn.com/content/v1/549f45d6e4b037c1971053fd/1429331411211-EJKOTLKYFMKLFNDCX8IE/ke17ZwdGBToddI8pDm48kAt72yGFwHZjoxtmj75n0VMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dvp1wM0jvciobd5mvjBb-PkjbbxSYDSdt-BIyUswy_5eG6v6ULRah83RgHXAWD5lbQ/image-asset.jpeg?format=750w"));
-        /*list.add(new Dependency("1º Ciclo Formativo Grado Superior", "1CFGS", "Aula informática", "", "https://images.squarespace-cdn.com/content/v1/549f45d6e4b037c1971053fd/1429331411211-EJKOTLKYFMKLFNDCX8IE/ke17ZwdGBToddI8pDm48kAt72yGFwHZjoxtmj75n0VMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dvp1wM0jvciobd5mvjBb-PkjbbxSYDSdt-BIyUswy_5eG6v6ULRah83RgHXAWD5lbQ/image-asset.jpeg?format=750w"));
-        list.add(new Dependency("1º Ciclo Formativo Grado Medio", "1CFGM", "Aula informática", "", "https://images.squarespace-cdn.com/content/v1/549f45d6e4b037c1971053fd/1429331411211-EJKOTLKYFMKLFNDCX8IE/ke17ZwdGBToddI8pDm48kAt72yGFwHZjoxtmj75n0VMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dvp1wM0jvciobd5mvjBb-PkjbbxSYDSdt-BIyUswy_5eG6v6ULRah83RgHXAWD5lbQ/image-asset.jpeg?format=750w"));
-        list.add(new Dependency("2º Ciclo Formativo Grado Medio", "2CFGM", "Aula informática", "", "https://images.squarespace-cdn.com/content/v1/549f45d6e4b037c1971053fd/1429331411211-EJKOTLKYFMKLFNDCX8IE/ke17ZwdGBToddI8pDm48kAt72yGFwHZjoxtmj75n0VMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dvp1wM0jvciobd5mvjBb-PkjbbxSYDSdt-BIyUswy_5eG6v6ULRah83RgHXAWD5lbQ/image-asset.jpeg?format=750w"));
-        list.add(new Dependency("4º ESO", "4ESO", "Aula informática", "", "https://images.squarespace-cdn.com/content/v1/549f45d6e4b037c1971053fd/1429331411211-EJKOTLKYFMKLFNDCX8IE/ke17ZwdGBToddI8pDm48kAt72yGFwHZjoxtmj75n0VMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dvp1wM0jvciobd5mvjBb-PkjbbxSYDSdt-BIyUswy_5eG6v6ULRah83RgHXAWD5lbQ/image-asset.jpeg?format=750w"));
-        list.add(new Dependency("3º ESO", "3ESO", "Aula informática", "", "https://images.squarespace-cdn.com/content/v1/549f45d6e4b037c1971053fd/1429331411211-EJKOTLKYFMKLFNDCX8IE/ke17ZwdGBToddI8pDm48kAt72yGFwHZjoxtmj75n0VMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dvp1wM0jvciobd5mvjBb-PkjbbxSYDSdt-BIyUswy_5eG6v6ULRah83RgHXAWD5lbQ/image-asset.jpeg?format=750w"));
-        list.add(new Dependency("2º ESO", "2ESO", "Aula informática", "", "https://images.squarespace-cdn.com/content/v1/549f45d6e4b037c1971053fd/1429331411211-EJKOTLKYFMKLFNDCX8IE/ke17ZwdGBToddI8pDm48kAt72yGFwHZjoxtmj75n0VMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dvp1wM0jvciobd5mvjBb-PkjbbxSYDSdt-BIyUswy_5eG6v6ULRah83RgHXAWD5lbQ/image-asset.jpeg?format=750w"));
-        */
-        list.add(new Dependency("1º ESO", "1ESO", "Aula informática", "", "https://images.squarespace-cdn.com/content/v1/549f45d6e4b037c1971053fd/1429331411211-EJKOTLKYFMKLFNDCX8IE/ke17ZwdGBToddI8pDm48kAt72yGFwHZjoxtmj75n0VMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2dvp1wM0jvciobd5mvjBb-PkjbbxSYDSdt-BIyUswy_5eG6v6ULRah83RgHXAWD5lbQ/image-asset.jpeg?format=750w"));
+    public List<Dependency> getList() {
+        return new AsyncTask<Void, Void, List<Dependency>>() {
+            @Override
+            protected List<Dependency> doInBackground(Void... voids) {
+                return dependencyDao.getAll();
+            }
+        }.doInBackground();
     }
 
-    public ArrayList<Dependency> getList() {
-        return this.list;
+    private void initializeList(){
+        insert(new Dependency("2º Desarrollo de Aplicaciones Multiplataforma", "2º CFGS", "Los más mejores", "AAA", "gf"));
+        insert(new Dependency("1º Desarrollo de Aplicaciones Multiplataforma", "1º CFGS", "Los menos mejores", "AAA", "gf"));
     }
 
-    public boolean add(Dependency dependency) {
-        if (!list.contains(dependency)){
-            list.add(dependency);
-            return true;
-        }else
-            return false;
+    public boolean insert(Dependency dependency) {
+        InventoryDatabase.databaseWriteExecutor.execute( () -> dependencyDao.insert(dependency));
+        return true;
     }
 
-    public boolean edit(Dependency dependency) {
+    public boolean update(Dependency dependency) {
+        InventoryDatabase.databaseWriteExecutor.execute( () -> dependencyDao.update(dependency));
+        return true;
+    }
+
+    public boolean delete(Dependency dependency) {
+        InventoryDatabase.databaseWriteExecutor.execute( () -> dependencyDao.delete(dependency));
+        return true;
+    }
+
+    public int getCount() {
         try {
-            for (Dependency dependencyIt : list) {
-                if (dependencyIt.getShortName().equals(dependency.getShortName())) {
-                    dependencyIt.setName(dependency.getName());
-                    dependencyIt.setDescription(dependency.getDescription());
+            return new AsyncTask<Void, Void, Integer>() {
+                @Override
+                protected Integer doInBackground(Void... voids) {
+                    return dependencyDao.getCount();
                 }
-            }
-            return true;
-        } catch (Exception e) {
+            }.execute().get();
+        } catch (ExecutionException e) {
             e.printStackTrace();
-            return false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
-    public boolean delete(Dependency dependency){
-        Iterator<Dependency> dependencyIterator = list.iterator();
-        while (dependencyIterator.hasNext()){
-            if (dependencyIterator.next().equals(dependency)) {
-                dependencyIterator.remove();
-                return true;
-            }
-        }
-        return false;
-    }
+
 }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.ViewHolder> {
-    private ArrayList<Dependency> list;
+    private List<Dependency> list;
     private OnManageDependencyListener onManageDependencyListener;
 
     public interface OnManageDependencyListener{

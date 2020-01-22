@@ -45,7 +45,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     }
 
     /**
-     * Es llamado desde el Presenter después de realizar una de las acciones de add/edit y se muestra la lista.
+     * Es llamado desde el Presenter después de realizar una de las acciones de insert/update y se muestra la lista.
      */
     @Override
     public void onSuccess() {
@@ -105,7 +105,8 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         edName = view.findViewById(R.id.edName);
         edShortName = view.findViewById(R.id.edShortName);
         spInventory = view.findViewById(R.id.spInventory);
-        floatingActionButton = view.findViewById(R.id.fabSection);
+        floatingActionButton = getActivity().findViewById(R.id.fabSection);
+        initializeFab();
     }
 
     private void setDependencyInView(Bundle bundle) {
@@ -120,7 +121,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     /**
      * Valida la dependencia. Añade o edita.
      */
-    /*private void initializeFab() {
+    private void initializeFab() {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +129,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
                     dependencyManagePresenter.validateDependency(getDependency());
             }
         });
-    }*/
+    }
 
     /**
      * Recoge los datos de la vista y se crea una Dependencia.

@@ -27,11 +27,12 @@ import com.vfguille.inventoryjetpack.data.model.Dependency;
 import com.vfguille.inventoryjetpack.ui.base.BaseDialogFragment;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class DependencyListFragment extends Fragment implements DependencyListContract.View, BaseDialogFragment.OnFinishDialogListener {
 
     /**
-     * Comunica al listener que se ha pulsado el botón add.
+     * Comunica al listener que se ha pulsado el botón insert.
      */
     interface OnManageDependencyListener {
         void onManageDependency(Dependency dependency);

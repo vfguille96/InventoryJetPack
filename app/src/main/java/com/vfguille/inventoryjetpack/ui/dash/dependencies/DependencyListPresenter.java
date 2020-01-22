@@ -18,6 +18,7 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
     /**
      * Eliminar no influye en los filtros del presenter.
      * No influye en el orden
+     *
      * @param dependency
      */
     @Override
@@ -25,7 +26,7 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
         //  1- Realizar operación en el repositorio y comprobar el resultado.
         if (DependencyRepository.getInstance().delete(dependency)) {
             //  1.2 Comprobar si no hay datos.
-            if (DependencyRepository.getInstance().getList().isEmpty())
+            if (DependencyRepository.getInstance().getCount() == 0)
                 view.showImageNoData();
             view.onSuccessDeleted();
         }
@@ -72,14 +73,13 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
 
     @Override
     public void undo(Dependency dependency) {
-        if (DependencyRepository.getInstance().add(dependency)){
-            // Hay que actualizar el adapter
-            view.onSuccessUndo(dependency);
-            if (DependencyRepository.getInstance().getList().size() == 1)
-                view.hideImageNoData();
-        }
-
+        DependencyRepository.getInstance().insert(dependency);
+        // Hay que actualizar el adapter
+        view.onSuccessUndo(dependency);
+        if (DependencyRepository.getInstance().getCount() > 0)
+            view.hideImageNoData();
     }
+
 
     private void checkImageNoDataIsVisible() {
         if (!view.isVisibleImgNoData())

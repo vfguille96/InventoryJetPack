@@ -24,6 +24,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_inventory_round"
         android:supportsRtl="true"
+        android:name=".InventoryApplication"
         android:theme="@style/AppThemeMaterial">
         <activity android:name=".ui.base.BaseActivity"/>
         <activity android:name=".ui.dash.product.ProductActivity" />
