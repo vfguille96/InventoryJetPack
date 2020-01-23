@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.vfguille.inventoryjetpack.data.InventoryDatabase;
 import com.vfguille.inventoryjetpack.data.dao.DependencyDao;
 import com.vfguille.inventoryjetpack.data.model.Dependency;
+import com.vfguille.inventoryjetpack.ui.dash.dependencies.DependencyListPresenter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,6 +15,15 @@ import java.util.concurrent.ExecutionException;
 public class DependencyRepository {
     private static DependencyRepository dependencyRepository;
     private static DependencyDao dependencyDao;
+    DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener;
+
+    public void getList(DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener) {
+        if (dependencyListPresenterListener != null)
+            this.dependencyListPresenterListener = dependencyListPresenterListener;
+        new QueryAsyncClass(dependencyListPresenterListener).execute();
+    }
+
+
 
     // Constructor privado porque sólo existe un objeto Repository.
     private DependencyRepository() {
@@ -29,12 +39,14 @@ public class DependencyRepository {
     }
 
     public List<Dependency> getList() {
-        return new AsyncTask<Void, Void, List<Dependency>>() {
-            @Override
-            protected List<Dependency> doInBackground(Void... voids) {
-                return dependencyDao.getAll();
-            }
-        }.doInBackground();
+        try {
+            return InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getAll()).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void initializeList(){
@@ -59,12 +71,7 @@ public class DependencyRepository {
 
     public int getCount() {
         try {
-            return new AsyncTask<Void, Void, Integer>() {
-                @Override
-                protected Integer doInBackground(Void... voids) {
-                    return dependencyDao.getCount();
-                }
-            }.execute().get();
+            return InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getCount()).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -73,5 +80,23 @@ public class DependencyRepository {
         return 0;
     }
 
+    private class QueryAsyncClass extends AsyncTask<Void, Void, List<Dependency>>{
+        DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener;
+
+        public QueryAsyncClass(DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener) {
+            this.dependencyListPresenterListener = dependencyListPresenterListener;
+        }
+
+        @Override
+        protected void onPostExecute(List<Dependency> dependencyList) {
+            super.onPostExecute(dependencyList);
+            dependencyListPresenterListener.onSuccessLoadList(dependencyList);
+        }
+
+        @Override
+        protected List<Dependency> doInBackground(Void... voids) {
+            return dependencyDao.getAll();
+        }
+    }
 
 }

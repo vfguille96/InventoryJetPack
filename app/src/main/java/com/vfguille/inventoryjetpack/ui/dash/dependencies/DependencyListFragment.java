@@ -57,6 +57,7 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
     private LottieAnimationView skele1;
     private LottieAnimationView skele2;
     private Toolbar toolbar;
+    View view;
 
     public static Fragment onNewInstance(Bundle bundle) {
         DependencyListFragment fragment = new DependencyListFragment();
@@ -175,6 +176,7 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
     public void onResume() {
         super.onResume();
         presenter.load();
+
     }
 
     // ------------------------------------------------------------------------------------------------

@@ -1,7 +1,5 @@
 package com.vfguille.inventoryjetpack.ui.dash.dependencies;
 
-import android.os.AsyncTask;
-
 import com.vfguille.inventoryjetpack.data.model.Dependency;
 import com.vfguille.inventoryjetpack.data.repository.DependencyRepository;
 
@@ -9,11 +7,31 @@ import java.util.List;
 
 public class DependencyListPresenter implements DependencyListContract.Presenter {
 
+    public interface DependencyListPresenterListener {
+        void onSuccessLoadList(List<Dependency> dependencyList);
+    }
+
     DependencyListContract.View view;
+
+    DependencyListPresenterListener dependencyListPresenterListener;
 
     public DependencyListPresenter(DependencyListContract.View view) {
         this.view = view;
+
+        dependencyListPresenterListener = new DependencyListPresenterListener() {
+            @Override
+            public void onSuccessLoadList(List<Dependency> dependencyList) {
+                view.hideProgress();
+                if (dependencyList.isEmpty())
+                    view.showImageNoData();
+                else {
+                    checkImageNoDataIsVisible();
+                    view.showData(dependencyList);
+                }
+            }
+        };
     }
+
 
     /**
      * Eliminar no influye en los filtros del presenter.
@@ -34,7 +52,10 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
 
     @Override
     public void load() {
-        new AsyncTask<Void, Void, List<Dependency>>() {
+        view.showProgress();
+        DependencyRepository.getInstance().getList(dependencyListPresenterListener);
+
+        /*new AsyncTask<Void, Void, List<Dependency>>() {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -61,14 +82,9 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
 
             @Override
             protected List<Dependency> doInBackground(Void... voids) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return DependencyRepository.getInstance().getList();
+                return DependencyRepository.getInstance().onSuccessLoadList();
             }
-        }.execute();
+        }.execute();*/
     }
 
     @Override
@@ -85,4 +101,5 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
         if (!view.isVisibleImgNoData())
             view.hideImageNoData();
     }
+
 }
