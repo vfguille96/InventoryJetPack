@@ -57,4 +57,5 @@
     <string name="menu_options">Actions menu</string>
     <string name="info">Information</string>
     <string name="map">Map</string>
+    <string name="canal">canal_notifications</string>
 </resources>

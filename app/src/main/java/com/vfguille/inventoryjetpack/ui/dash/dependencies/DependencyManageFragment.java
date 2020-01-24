@@ -1,6 +1,8 @@
 package com.vfguille.inventoryjetpack.ui.dash.dependencies;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,12 +13,15 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.vfguille.inventoryjetpack.R;
 import com.vfguille.inventoryjetpack.data.model.Dependency;
+import com.vfguille.inventoryjetpack.ui.dash.DashBoardActivity;
 
 
 public class DependencyManageFragment extends Fragment implements DependencyManageContract.View {
@@ -49,6 +54,16 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
      */
     @Override
     public void onSuccess() {
+        Intent intent = new Intent(getActivity(), DependencyManageFragment.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
+        String title;
+        String content;
+        NotificationCompat.Builder builder = buildNotification(pendingIntent);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        // notificationId is a unique int for each notification that must be defined
+        notificationManager.notify(notificationId, builder.build());
         getActivity().onBackPressed();
     }
 

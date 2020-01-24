@@ -25,9 +25,10 @@ public class DependencyManagePresenter implements DependencyManageContract.Prese
 
     @Override
     public void add(Dependency dependency) {
-        DependencyRepository.getInstance().insert(dependency);
+        if(DependencyRepository.getInstance().insert(dependency)) {
             view.onSuccess();
-        //view.showError(R.string.err_add_dependency);
+        }else
+            view.showError(R.string.err_add_dependency);
     }
 
     @Override

@@ -38,6 +38,10 @@ public class DependencyRepository {
         return dependencyRepository;
     }
 
+    /**
+     * Obtiene una lista de dependencias. Todas de la tabla.
+     * @return
+     */
     public List<Dependency> getList() {
         try {
             return InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getAll()).get();
@@ -54,21 +58,41 @@ public class DependencyRepository {
         insert(new Dependency("1º Desarrollo de Aplicaciones Multiplataforma", "1º CFGS", "Los menos mejores", "AAA", "gf"));
     }
 
+    /**
+     * Inserta una nueva dependencia en la BD.
+     * @param dependency
+     * @return
+     */
     public boolean insert(Dependency dependency) {
         InventoryDatabase.databaseWriteExecutor.execute( () -> dependencyDao.insert(dependency));
         return true;
     }
 
+
+    /**
+     * Actualiza la dependecia de la BD.
+     * @param dependency
+     * @return
+     */
     public boolean update(Dependency dependency) {
         InventoryDatabase.databaseWriteExecutor.execute( () -> dependencyDao.update(dependency));
         return true;
     }
 
+    /**
+     * Borra la dependencia de la BD.
+     * @param dependency
+     * @return
+     */
     public boolean delete(Dependency dependency) {
         InventoryDatabase.databaseWriteExecutor.execute( () -> dependencyDao.delete(dependency));
         return true;
     }
 
+    /**
+     * Obtiene el número de filas de la tabla dependency.
+     * @return
+     */
     public int getCount() {
         try {
             return InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getCount()).get();
@@ -80,6 +104,10 @@ public class DependencyRepository {
         return 0;
     }
 
+
+    /**
+     * Clase async que obtiene la lista de dependencias de la BD y se la pasa al Presenter mediante un listener.
+     */
     private class QueryAsyncClass extends AsyncTask<Void, Void, List<Dependency>>{
         DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener;
 
