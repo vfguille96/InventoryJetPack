@@ -56,15 +56,28 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     public void onSuccess() {
         Intent intent = new Intent(getActivity(), DependencyManageFragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
-        String title;
-        String content;
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext() , 0, intent, 0);
         NotificationCompat.Builder builder = buildNotification(pendingIntent);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity());
 
         // notificationId is a unique int for each notification that must be defined
-        notificationManager.notify(notificationId, builder.build());
+        notificationManager.notify(1, builder.build());
         getActivity().onBackPressed();
+    }
+
+    private NotificationCompat.Builder buildNotification(PendingIntent pendingIntent) {
+        return new NotificationCompat.Builder(getActivity(), getString(R.string.canal))
+                .setSmallIcon(R.drawable.inventorylogo)
+                .setColor(getResources().getColor(R.color.colorPrimary))
+                .setContentTitle("Prueba notificaçao")
+                .setContentText("Prueba notificaçao de dependency.")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("Prueba notificaçao de dependency."))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
+                .setAutoCancel(true);
     }
 
     @Override

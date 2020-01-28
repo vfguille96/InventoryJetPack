@@ -3,13 +3,25 @@ package com.vfguille.inventoryjetpack.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Section implements Parcelable {
 
     public static final String TAG = "section";
+    @NonNull
     String name;
+    @PrimaryKey
+    @NonNull
     String shortName;
+    @NonNull
     String dependency;
+    @NonNull
     String description;
+    @NonNull
     String image;
 
     public Section(String name, String shortName, String dependency, String description, String image) {
