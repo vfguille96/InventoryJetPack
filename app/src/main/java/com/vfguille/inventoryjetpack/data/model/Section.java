@@ -8,7 +8,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(entity = Dependency.class,
+        parentColumns = "shortName",
+        childColumns = "dependency",
+        onDelete = CASCADE))
 public class Section implements Parcelable {
 
     public static final String TAG = "section";

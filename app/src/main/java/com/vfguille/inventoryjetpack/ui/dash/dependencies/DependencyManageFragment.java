@@ -54,9 +54,14 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
      */
     @Override
     public void onSuccess() {
-        Intent intent = new Intent(getActivity(), DependencyManageFragment.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getContext() , 0, intent, 0);
+        //Un PendingIntent tiene un objeto en su interior que define lo que se quiere ejecutar.
+        Intent intent = new Intent(getActivity(), DependencyActivity.class);
+        intent.putExtra("NOTIFICATION", true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Dependency.TAG, getDependency());
+        intent.putExtras(bundle);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity() , 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = buildNotification(pendingIntent);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity());
 

@@ -21,6 +21,17 @@ public class DependencyActivity extends BaseActivity implements DependencyListFr
         showListFragment();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Si el intent que recibe de la notificación tienen el FLAG = true.
+        // Llamar al método showManageFragment con la dependencia.
+        Bundle bundle = getIntent().getExtras();
+        if (getIntent().getBooleanExtra("NOTIFICATION", false))
+            onManageDependency(bundle.getParcelable(Dependency.TAG));
+    }
+
     /**
      * Muestra el DependenciesFragment
      */
