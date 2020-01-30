@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     private FloatingActionButton floatingActionButton;
     private Spinner spInventory;
     private DependencyManageContract.Presenter dependencyManagePresenter;
+    private static int notId = 2;
+    private static int notIdIntent = 2;
 
     // Métodos del contrato DependencyManageContract
     @Override
@@ -61,12 +64,15 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         Bundle bundle = new Bundle();
         bundle.putParcelable(Dependency.TAG, getDependency());
         intent.putExtras(bundle);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity() , 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity() , notIdIntent++, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = buildNotification(pendingIntent);
+        NotificationCompat.Builder builder2 = buildNotification();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity());
 
         // notificationId is a unique int for each notification that must be defined
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(1, builder2.build());
+        notificationManager.notify(notId++, builder.build());
+        Log.d("NOT", String.valueOf(notId));
         getActivity().onBackPressed();
     }
 
@@ -82,6 +88,29 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
                 .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
+                .setGroup("dependency2")
+                .setAutoCancel(true);
+    }
+
+
+    /*
+        Notificación padre para agrupar. Sin PendingIntent y
+        ".setGroup("dependency2")
+        .setGroupSummary(true)"
+     */
+    private NotificationCompat.Builder buildNotification() {
+        return new NotificationCompat.Builder(getActivity(), getString(R.string.canal))
+                .setSmallIcon(R.drawable.inventorylogo)
+                .setColor(getResources().getColor(R.color.colorPrimary))
+                .setContentTitle("Prueba notificaçao")
+                .setContentText("Prueba notificaçao de dependency.")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("Prueba notificaçao de dependency."))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                // Set the intent that will fire when the user taps the notification
+                .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
+                .setGroup("dependency2")
+                .setGroupSummary(true)
                 .setAutoCancel(true);
     }
 
@@ -138,7 +167,6 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         edName = view.findViewById(R.id.edName);
         edShortName = view.findViewById(R.id.edShortName);
         spInventory = view.findViewById(R.id.spInventory);
-        floatingActionButton = getActivity().findViewById(R.id.fabSection);
         initializeFab();
     }
 
@@ -155,6 +183,8 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
      * Valida la dependencia. Añade o edita.
      */
     private void initializeFab() {
+        floatingActionButton = getActivity().findViewById(R.id.fabSection);
+        floatingActionButton.setImageResource(R.drawable.ic_done_black_24dp);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

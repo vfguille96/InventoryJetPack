@@ -106,7 +106,7 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
         super.onViewCreated(view, savedInstanceState);
         initRvDependency(view);
         initializeAnimations(view);
-        initializeFab(view);
+        initializeFab();
     }
 
     private void initializeAnimations(@NonNull View view) {
@@ -116,8 +116,9 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
         lottieAnimationView.setVisibility(View.GONE);
     }
 
-    private void initializeFab(@NonNull View view) {
+    private void initializeFab() {
         floatingActionButton = getActivity().findViewById(R.id.fabSection);
+        floatingActionButton.setImageResource(R.drawable.ic_add_white_24dp);
         //bottomAppBar = view.findViewById(R.id.babSection);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +177,7 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
     public void onResume() {
         super.onResume();
         presenter.load();
+        initializeFab();
 
     }
 
