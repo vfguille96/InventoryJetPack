@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -37,6 +39,7 @@ public class Section implements Parcelable {
         this.image = image;
     }
 
+    @Ignore
     public Section() {
 
     }

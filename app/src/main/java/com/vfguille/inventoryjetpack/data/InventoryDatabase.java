@@ -8,16 +8,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.vfguille.inventoryjetpack.data.dao.DependencyDao;
+import com.vfguille.inventoryjetpack.data.dao.SectionDao;
 import com.vfguille.inventoryjetpack.data.model.Dependency;
+import com.vfguille.inventoryjetpack.data.model.Section;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Dependency.class}, version = 2, exportSchema = false)
+@Database(entities = {Dependency.class, Section.class}, version = 3, exportSchema = false)
 public abstract class InventoryDatabase extends RoomDatabase {
 
 
     public abstract DependencyDao dependencyDao();
+    public abstract SectionDao SectionDao();
 
     private static volatile InventoryDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
