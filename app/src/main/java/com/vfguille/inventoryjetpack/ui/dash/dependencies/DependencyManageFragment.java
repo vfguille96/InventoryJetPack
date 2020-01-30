@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -135,7 +136,6 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         else
             dependencyManagePresenter.add(dependency);
     }
-    // ---
 
 
     public static Fragment onNewInstance(Bundle bundle) {
@@ -155,7 +155,6 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeViewElements(view);
-        //initializeFab();
 
         Bundle bundle = getArguments();
         if (bundle != null)
@@ -168,6 +167,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         edShortName = view.findViewById(R.id.edShortName);
         spInventory = view.findViewById(R.id.spInventory);
         initializeFab();
+
     }
 
     private void setDependencyInView(Bundle bundle) {

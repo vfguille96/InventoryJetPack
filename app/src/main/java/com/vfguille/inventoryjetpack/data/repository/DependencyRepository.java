@@ -53,6 +53,22 @@ public class DependencyRepository {
         return null;
     }
 
+
+    /**
+     * Obtiene una lista de nombres cortos de dependencias.
+     * @return
+     */
+    public List<String> getAllShortNames(){
+        try {
+            return InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getAllShortNames()).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void initializeList(){
         insert(new Dependency("2º Desarrollo de Aplicaciones Multiplataforma", "2º CFGS", "Los más mejores", "AAA", "gf"));
         insert(new Dependency("1º Desarrollo de Aplicaciones Multiplataforma", "1º CFGS", "Los menos mejores", "AAA", "gf"));

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -16,8 +17,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.vfguille.inventoryjetpack.R;
+import com.vfguille.inventoryjetpack.data.model.Dependency;
 import com.vfguille.inventoryjetpack.data.model.Section;
 import com.vfguille.inventoryjetpack.ui.base.BaseActivity;
+
+import java.util.List;
 
 
 public class SectionManageFragment extends Fragment implements SectionManageContract.View {
@@ -29,6 +33,7 @@ public class SectionManageFragment extends Fragment implements SectionManageCont
     private FloatingActionButton floatingActionButton;
     private Spinner spRepository;
     private SectionManageContract.Presenter sectionManagePresenter;
+    private List<String> getAllShortNames;
 
     // Métodos del contrato SectionManageContract
     @Override
@@ -80,13 +85,22 @@ public class SectionManageFragment extends Fragment implements SectionManageCont
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        getAllShortNames = sectionManagePresenter.getAllShorNames();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeViewElements(view);
-        setFab(floatingActionButton);
+        floatingActionButton = getActivity().findViewById(R.id.fabSection);
+        floatingActionButton.setImageResource(R.drawable.ic_done_black_24dp);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isSectionValid())
+                    sectionManagePresenter.validateSection(getSection());
+            }
+        });
 
         Bundle bundle = getArguments();
         if (bundle != null)
@@ -98,6 +112,8 @@ public class SectionManageFragment extends Fragment implements SectionManageCont
         edName = view.findViewById(R.id.edName);
         edShortName = view.findViewById(R.id.edShortName);
         spRepository = view.findViewById(R.id.spInventory);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, getAllShortNames);
+        spRepository.setAdapter(arrayAdapter);
     }
 
     private void setSectionInView(Bundle bundle) {
@@ -105,6 +121,7 @@ public class SectionManageFragment extends Fragment implements SectionManageCont
         edShortName.setEnabled(false);
         edShortName.setText(section.getShortName());
         edName.setText(section.getName());
+        spRepository.setSelection(getAllShortNames.indexOf(section.getDependency()));
         edDescription.setText(section.getDescription());
     }
 
@@ -115,6 +132,7 @@ public class SectionManageFragment extends Fragment implements SectionManageCont
         section.setShortName(edShortName.getText().toString());
         section.setDependency(spRepository.getSelectedItem().toString());
         section.setDescription(edDescription.getText().toString());
+        section.setImage("");
         return section;
     }
 
@@ -160,17 +178,5 @@ public class SectionManageFragment extends Fragment implements SectionManageCont
     @Override
     public void onDetach() {
         super.onDetach();
-    }
-
-    public void setFab(FloatingActionButton floatingActionButton) {
-        this.floatingActionButton = floatingActionButton;
-        this.floatingActionButton.setImageResource(R.drawable.ic_done_black_24dp);
-        this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isSectionValid())
-                    sectionManagePresenter.validateSection(getSection());
-            }
-        });
     }
 }

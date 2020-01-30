@@ -52,7 +52,6 @@ public class SectionActivity extends BaseActivity implements SectionListFragment
                 b.putParcelable(Section.TAG, section);
             }
             sectionManageFragment = (SectionManageFragment) SectionManageFragment.onNewInstance(b);
-            sectionManageFragment.setFab(floatingActionButton);
         }
 
         // Depués de crear la vista, se crea el Presenter (inicialización del contrato).

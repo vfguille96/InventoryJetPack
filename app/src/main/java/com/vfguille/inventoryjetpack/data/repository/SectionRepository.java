@@ -1,67 +1,74 @@
 package com.vfguille.inventoryjetpack.data.repository;
 
 
+import com.vfguille.inventoryjetpack.data.InventoryDatabase;
+import com.vfguille.inventoryjetpack.data.dao.SectionDao;
 import com.vfguille.inventoryjetpack.data.model.Section;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class SectionRepository {
     private static SectionRepository sectionRepository;
-    private ArrayList<Section> list;
+    private static SectionDao sectionDao;
 
-    private SectionRepository(){
-        list = new ArrayList<>();
+    private SectionRepository() {
         initialize();
     }
 
-    public static SectionRepository getInstance(){
-        if (sectionRepository == null)
+    public static SectionRepository getInstance() {
+        if (sectionRepository == null) {
+            sectionDao = InventoryDatabase.getDatabase().SectionDao();
             sectionRepository = new SectionRepository();
+        }
         return sectionRepository;
     }
 
-    public ArrayList<Section> getList(){
-        return this.list;
+    public List<Section> getList() {
+        try {
+            return InventoryDatabase.databaseWriteExecutor.submit(() -> sectionDao.getAll()).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void initialize() {
-        list.add(new Section("Sección A", "A", "1CFGS", "Sección de los imberbes de primero.", "https://i.kym-cdn.com/photos/images/newsfeed/001/003/188/daa.jpg"));
-        list.add(new Section("Sección B", "B", "2CFGS", "Los más aplicados.", "https://i.kym-cdn.com/photos/images/newsfeed/001/003/188/daa.jpg"));
-        list.add(new Section("Sección C", "C", "1CFGM", "Dando ofimática con Schema.", "https://i.kym-cdn.com/photos/images/newsfeed/001/003/188/daa.jpg"));
+        add(new Section("Sección A", "A", "1º CFGS", "Sección de los imberbes de primero.", "https://i.kym-cdn.com/photos/images/newsfeed/001/003/188/daa.jpg"));
+        add(new Section("Sección B", "B", "2º CFGS", "Sección de los imberbes sin título de bachillerato.", "https://i.kym-cdn.com/photos/images/newsfeed/001/003/188/daa.jpg"));
     }
 
-    public boolean add(Section Section) {
-        if (!list.contains(Section)){
-            list.add(Section);
-            return true;
-        }else
-            return false;
+    /**
+     * Inserta una nueva sección en la BD.
+     * @param section
+     * @return
+     */
+    public boolean add(Section section) {
+        InventoryDatabase.databaseWriteExecutor.execute(() -> sectionDao.insert(section));
+        return true;
     }
 
+    /**
+     * Actualiza la sección de la BD.
+     * @param section
+     * @return
+     */
     public boolean edit(Section section) {
-        try {
-            for (Section sectionIt : list) {
-                if (sectionIt.getShortName().equals(section.getShortName())) {
-                    sectionIt.setName(section.getName());
-                    sectionIt.setDescription(section.getDescription());
-                }
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        InventoryDatabase.databaseWriteExecutor.execute(() -> sectionDao.update(section));
+        return true;
     }
 
-    public boolean delete(Section section){
-        Iterator<Section> sectionIterator = list.iterator();
-        while (sectionIterator.hasNext()){
-            if (sectionIterator.next().equals(section)) {
-                sectionIterator.remove();
-                return true;
-            }
-        }
-        return false;
+    /**
+     * Borra la section de la BD.
+     * @param section
+     * @return
+     */
+    public boolean delete(Section section) {
+        InventoryDatabase.databaseWriteExecutor.execute(() -> sectionDao.delete(section));
+        return true;
     }
 }

@@ -4,6 +4,8 @@ package com.vfguille.inventoryjetpack.ui.dash.dependencies;
 import com.vfguille.inventoryjetpack.data.model.Dependency;
 import com.vfguille.inventoryjetpack.ui.base.BaseView;
 
+import java.util.List;
+
 /**
  * Interfaz que corresponde al contrato que se establece entre SectionManageFragment (vista)
  * y SectionManagePresenter (presenter).

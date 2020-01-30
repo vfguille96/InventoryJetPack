@@ -33,4 +33,7 @@ public interface DependencyDao {
 
     @Query("SELECT count(*) FROM DEPENDENCY")
     int getCount();
+
+    @Query("SELECT shortName FROM DEPENDENCY ORDER BY shortName")
+    List<String> getAllShortNames();
 }

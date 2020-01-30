@@ -15,7 +15,7 @@ import com.vfguille.inventoryjetpack.data.model.Section;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Dependency.class, Section.class}, version = 3, exportSchema = false)
+@Database(entities = {Dependency.class, Section.class}, version = 5, exportSchema = false)
 public abstract class InventoryDatabase extends RoomDatabase {
 
 

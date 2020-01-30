@@ -25,7 +25,7 @@ import com.vfguille.inventoryjetpack.ui.base.BaseDialogFragment;
 import java.util.List;
 
 public class SectionListFragment extends Fragment implements SectionListContract.View, BaseDialogFragment.OnFinishDialogListener {
-    interface OnManageSectionListener{
+    interface OnManageSectionListener {
         void onManageSection(Section section);
     }
 
@@ -45,7 +45,6 @@ public class SectionListFragment extends Fragment implements SectionListContract
     private Section deleted;
     private Section undoDeleted;
     private Toolbar toolbar;
-
 
 
     public static Fragment onNewInstance(Bundle bundle) {
@@ -76,6 +75,15 @@ public class SectionListFragment extends Fragment implements SectionListContract
         super.onViewCreated(view, savedInstanceState);
         initRvSection(view);
         initializeAnimations(view);
+        floatingActionButton = getActivity().findViewById(R.id.fabSection);
+        floatingActionButton.setImageResource(R.drawable.ic_add_white_24dp);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onManageSectionListener.onManageSection(null);
+            }
+        });
+        presenter.load();
     }
 
     private void initRvSection(View view) {
@@ -112,17 +120,6 @@ public class SectionListFragment extends Fragment implements SectionListContract
     public void onDetach() {
         super.onDetach();
         onManageSectionListener = null;
-    }
-
-    public void setFab(FloatingActionButton floatingActionButton) {
-        this.floatingActionButton = floatingActionButton;
-        this.floatingActionButton.setImageResource(R.drawable.ic_add_black_24dp);
-        this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onManageSectionListener.onManageSection(null);
-            }
-        });
     }
 
     private void showDeleteDialog(Section section) {
@@ -243,8 +240,6 @@ public class SectionListFragment extends Fragment implements SectionListContract
     private void undoDeleted(Section section) {
         presenter.undo(section);
     }
-
-
 
     private void initializeListenerAdapter(final OnManageSectionListener onManageSectionListener) {
         onManageSectionAdapterListener = new SectionAdapter.OnManageSectionListener() {

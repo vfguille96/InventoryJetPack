@@ -4,6 +4,8 @@ import com.vfguille.inventoryjetpack.R;
 import com.vfguille.inventoryjetpack.data.model.Dependency;
 import com.vfguille.inventoryjetpack.data.repository.DependencyRepository;
 
+import java.util.List;
+
 public class DependencyManagePresenter implements DependencyManageContract.Presenter {
 
     private DependencyManageContract.View view;

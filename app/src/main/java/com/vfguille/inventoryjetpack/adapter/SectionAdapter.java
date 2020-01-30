@@ -35,7 +35,6 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
 
     // Los datos se obtienen desde el repository.
     public SectionAdapter(OnManageSectionListener listener, Context context){
-        list = SectionRepository.getInstance().getList();
         onManageSectionListener = listener;
         this.context = context;
     }

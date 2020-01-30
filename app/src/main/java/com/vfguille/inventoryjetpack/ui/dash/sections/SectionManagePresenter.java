@@ -4,7 +4,10 @@ import androidx.fragment.app.Fragment;
 
 import com.vfguille.inventoryjetpack.R;
 import com.vfguille.inventoryjetpack.data.model.Section;
+import com.vfguille.inventoryjetpack.data.repository.DependencyRepository;
 import com.vfguille.inventoryjetpack.data.repository.SectionRepository;
+
+import java.util.List;
 
 public class SectionManagePresenter extends Fragment implements SectionManageContract.Presenter {
 
@@ -42,5 +45,10 @@ public class SectionManagePresenter extends Fragment implements SectionManageCon
             view.onSuccess();
         else
             view.showError(R.string.err_delete_dependency);
+    }
+
+    @Override
+    public List<String> getAllShorNames() {
+        return DependencyRepository.getInstance().getAllShortNames();
     }
 }
