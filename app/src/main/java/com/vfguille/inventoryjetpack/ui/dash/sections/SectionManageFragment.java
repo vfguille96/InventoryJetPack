@@ -132,7 +132,7 @@ public class SectionManageFragment extends Fragment implements SectionManageCont
         section.setShortName(edShortName.getText().toString());
         section.setDependency(spRepository.getSelectedItem().toString());
         section.setDescription(edDescription.getText().toString());
-        section.setImage("");
+        section.setImage("https://i.kym-cdn.com/photos/images/newsfeed/001/003/188/daa.jpg");
         return section;
     }
 

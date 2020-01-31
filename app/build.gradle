@@ -36,8 +36,9 @@ dependencies {
     // Animaciones Lottie
     implementation 'com.airbnb.android:lottie:3.2.2'
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     // CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     // Room

@@ -83,7 +83,6 @@ public class SectionListFragment extends Fragment implements SectionListContract
                 onManageSectionListener.onManageSection(null);
             }
         });
-        presenter.load();
     }
 
     private void initRvSection(View view) {
@@ -225,6 +224,7 @@ public class SectionListFragment extends Fragment implements SectionListContract
         deleted = null;
 
         showSnackbarDeleted();
+        presenter.load();
     }
 
     private void showSnackbarDeleted() {
