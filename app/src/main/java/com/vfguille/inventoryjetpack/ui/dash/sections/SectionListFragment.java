@@ -186,6 +186,7 @@ public class SectionListFragment extends Fragment implements SectionListContract
         lottieAnimationView.setVisibility(View.GONE);
         sectionAdapter.clear();
         sectionAdapter.load(sectionList);
+        sectionAdapter.notifyDataSetChanged();
     }
 
     @Override

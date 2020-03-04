@@ -19,20 +19,20 @@
 
     <TextView
         android:id="@+id/tvUser"
-        android:layout_marginTop="@dimen/padding_16dp"
-        android:layout_marginStart="@dimen/padding_16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_marginStart="@dimen/padding_16dp"
+        android:layout_marginTop="@dimen/padding_16dp"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/tvEmail"
-        android:layout_marginTop="@dimen/padding_16dp"
-        android:layout_marginStart="@dimen/padding_16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginStart="@dimen/padding_16dp"
+        android:layout_marginTop="@dimen/padding_16dp"
+        android:text="inventory@gmail.com" />
 
 
 </LinearLayout>

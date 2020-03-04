@@ -15,7 +15,7 @@ public class SectionRepository {
     private static SectionDao sectionDao;
 
     private SectionRepository() {
-        initialize();
+        //initialize();
     }
 
     public static SectionRepository getInstance() {
